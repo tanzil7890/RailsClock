@@ -1,0 +1,33 @@
+.railsclocks-logo {
+  &-container {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &-small {
+    width: $logo-size;
+    height: $logo-size;
+  }
+
+  &-large {
+    width: $logo-size-large;
+    height: $logo-size-large;
+  }
+
+  // Animation for the clock hands
+  &:hover {
+    .clock-hands {
+      animation: rotate-hands 2s linear infinite;
+    }
+  }
+}
+
+// Clock hand rotation animation
+@keyframes rotate-hands {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+} 

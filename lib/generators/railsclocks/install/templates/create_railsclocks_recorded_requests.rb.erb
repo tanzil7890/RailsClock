@@ -1,0 +1,21 @@
+class CreateRailsclocksRecordedRequests < ActiveRecord::Migration[6.1]
+  def change
+    create_table :railsclocks_recorded_requests do |t|
+      t.string :uuid, null: false
+      t.string :request_method
+      t.text :path
+      t.text :query_string
+      t.jsonb :headers
+      t.jsonb :params
+      t.jsonb :session_data
+      t.jsonb :cookies
+      t.jsonb :active_record_events
+      t.datetime :recorded_at, null: false
+
+      t.timestamps
+    end
+
+    add_index :railsclocks_recorded_requests, :uuid, unique: true
+    add_index :railsclocks_recorded_requests, :recorded_at
+  end
+end 

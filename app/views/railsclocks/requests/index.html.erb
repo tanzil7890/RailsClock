@@ -1,0 +1,73 @@
+<div class="requests-page">
+  <div class="page-header">
+    <h1>Recorded Requests</h1>
+    <div class="stats">
+      <span class="stat">Total: <%= @total_count %></span>
+      <span class="stat">Errors: <%= @error_count %></span>
+    </div>
+  </div>
+
+  <%= form_tag requests_path, method: :get, class: 'request-filters' do %>
+    <div class="filters">
+      <div class="filter-group">
+        <%= select_tag :method, 
+            options_for_select(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], params[:method]), 
+            prompt: 'All Methods', 
+            class: 'form-control' %>
+      </div>
+
+      <div class="filter-group">
+        <%= text_field_tag :path, params[:path], 
+            placeholder: 'Filter by path', 
+            class: 'form-control' %>
+      </div>
+
+      <div class="filter-group">
+        <%= date_field_tag :from, params[:from], 
+            class: 'form-control',
+            placeholder: 'From Date' %>
+      </div>
+
+      <div class="filter-group">
+        <%= date_field_tag :to, params[:to], 
+            class: 'form-control',
+            placeholder: 'To Date' %>
+      </div>
+
+      <%= submit_tag 'Apply Filters', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+
+  <div class="requests-list">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Path</th>
+          <th>Status</th>
+          <th>Duration</th>
+          <th>Time</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @requests.each do |request| %>
+          <tr>
+            <td><%= method_badge(request.request_method) %></td>
+            <td><%= format_path_with_query(request) %></td>
+            <td><%= status_badge(request.status_code) %></td>
+            <td><%= format_duration(request.duration) %></td>
+            <td><%= format_timestamp(request.recorded_at) %></td>
+            <td>
+              <%= link_to 'View', request_path(request), class: 'btn btn-sm btn-info' %>
+              <%= link_to 'Replay', replay_request_path(request), 
+                  method: :post, 
+                  class: 'btn btn-sm btn-warning',
+                  data: { confirm: 'Are you sure you want to replay this request?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

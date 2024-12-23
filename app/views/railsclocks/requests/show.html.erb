@@ -1,0 +1,78 @@
+<div class="request-details">
+  <div class="page-header">
+    <h1><%= request_summary(@request) %></h1>
+    <div class="actions">
+      <%= link_to 'Back to List', requests_path, class: 'btn btn-secondary' %>
+      <%= link_to 'Replay Request', 
+          replay_request_path(@request), 
+          method: :post, 
+          class: 'btn btn-warning',
+          data: { confirm: 'Are you sure you want to replay this request?' } %>
+    </div>
+  </div>
+
+  <div class="details-grid">
+    <div class="detail-card">
+      <h3>Request Details</h3>
+      <dl>
+        <dt>Method</dt>
+        <dd><%= method_badge(@request.request_method) %></dd>
+        
+        <dt>Path</dt>
+        <dd><%= format_path_with_query(@request) %></dd>
+        
+        <dt>Status</dt>
+        <dd><%= status_badge(@request.status_code) %></dd>
+        
+        <dt>Duration</dt>
+        <dd><%= format_duration(@request.duration) %></dd>
+        
+        <dt>Recorded At</dt>
+        <dd><%= format_timestamp(@request.recorded_at) %></dd>
+      </dl>
+    </div>
+
+    <div class="detail-card">
+      <h3>Parameters</h3>
+      <pre class="params-display"><%= JSON.pretty_generate(@request.filtered_params) %></pre>
+    </div>
+
+    <div class="detail-card">
+      <h3>Headers</h3>
+      <pre class="headers-display"><%= JSON.pretty_generate(@request.filtered_headers) %></pre>
+    </div>
+  </div>
+
+  <div class="sql-queries">
+    <h3>SQL Queries (<%= @sql_queries.size %>)</h3>
+    <% @sql_queries.each do |query| %>
+      <div class="query-card">
+        <%= format_sql_query(query) %>
+        <div class="query-meta">
+          <span>Duration: <%= format_duration(query['duration']) %></span>
+          <span>Name: <%= query['name'] %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @related_requests.any? %>
+    <div class="related-requests">
+      <h3>Related Requests</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Status</th>
+            <th>Duration</th>
+            <th>Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: 'request', collection: @related_requests %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

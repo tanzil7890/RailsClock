@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RailsClocks - <%= content_for?(:title) ? yield(:title) : "Request History" %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "railsclocks/application", media: "all" %>
+    <%= javascript_include_tag "railsclocks/application" %>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <%= link_to root_path, class: 'navbar-brand' do %>
+          <div class="railsclocks-logo-container">
+            <%= image_tag 'railsclocks/logo.svg', 
+                          class: 'railsclocks-logo railsclocks-logo-small', 
+                          alt: 'RailsClocks' %>
+          </div>
+          <span>RailsClocks</span>
+        <% end %>
+        <div class="navbar-menu">
+          <%= link_to 'Requests', requests_path, class: 'nav-link' %>
+          <%= link_to 'Performance', performance_requests_path, class: 'nav-link' %>
+          <% if defined?(Devise) %>
+            <span class="nav-text">Logged in as: <%= current_user.email %></span>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <% flash.each do |name, msg| %>
+        <div class="alert alert-<%= name == 'notice' ? 'success' : 'danger' %>">
+          <%= msg %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p>RailsClocks v<%= RailsClocks::VERSION %></p>
+      </div>
+    </footer>
+  </body>
+</html> 

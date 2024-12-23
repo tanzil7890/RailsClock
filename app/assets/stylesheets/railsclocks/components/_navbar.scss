@@ -1,0 +1,42 @@
+.navbar {
+  background-color: #fff;
+  border-bottom: 1px solid $border-color;
+  padding: $spacing-medium;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: $primary-color;
+    font-weight: bold;
+    font-size: 1.25rem;
+
+    .railsclocks-logo-container {
+      margin-right: $spacing-small;
+    }
+  }
+
+  &-menu {
+    display: flex;
+    align-items: center;
+    gap: $spacing-medium;
+  }
+
+  .nav-link {
+    color: $text-color;
+    text-decoration: none;
+    padding: $spacing-small;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+} 

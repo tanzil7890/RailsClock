@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clock Circle -->
+  <circle 
+    cx="100" 
+    cy="100" 
+    r="90" 
+    fill="none" 
+    stroke="#CC0000" 
+    stroke-width="8"
+  />
+  
+  <!-- Rails Track Design -->
+  <path 
+    d="M40,100 L160,100" 
+    stroke="#CC0000" 
+    stroke-width="8" 
+    stroke-linecap="round"
+  />
+  
+  <!-- Clock Hands -->
+  <g transform="rotate(45, 100, 100)">
+    <!-- Hour Hand -->
+    <line 
+      x1="100" 
+      y1="100" 
+      x2="100" 
+      y2="60" 
+      stroke="#333333" 
+      stroke-width="6" 
+      stroke-linecap="round"
+    />
+    <!-- Minute Hand -->
+    <line 
+      x1="100" 
+      y1="100" 
+      x2="140" 
+      y2="100" 
+      stroke="#333333" 
+      stroke-width="4" 
+      stroke-linecap="round"
+    />
+  </g>
+  
+  <!-- Center Point -->
+  <circle 
+    cx="100" 
+    cy="100" 
+    r="8" 
+    fill="#CC0000"
+  />
+  
+  <!-- Time Markers -->
+  <g>
+    <!-- 12 o'clock -->
+    <line x1="100" y1="20" x2="100" y2="35" stroke="#666666" stroke-width="4" />
+    <!-- 3 o'clock -->
+    <line x1="180" y1="100" x2="165" y2="100" stroke="#666666" stroke-width="4" />
+    <!-- 6 o'clock -->
+    <line x1="100" y1="180" x2="100" y2="165" stroke="#666666" stroke-width="4" />
+    <!-- 9 o'clock -->
+    <line x1="20" y1="100" x2="35" y2="100" stroke="#666666" stroke-width="4" />
+  </g>
+  
+  <!-- Rails Text -->
+  <text 
+    x="100" 
+    y="140" 
+    text-anchor="middle" 
+    font-family="Arial, sans-serif" 
+    font-size="24" 
+    font-weight="bold" 
+    fill="#CC0000"
+  >
+    RailsClocks
+  </text>
+</svg>

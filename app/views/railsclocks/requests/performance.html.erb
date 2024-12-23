@@ -1,0 +1,64 @@
+<div class="performance-page">
+  <div class="page-header">
+    <h1>Performance Analytics</h1>
+    <div class="period-selector">
+      <%= form_tag performance_requests_path, method: :get, class: 'period-form' do %>
+        <%= select_tag :period, 
+            options_for_select([
+              ['Last 24 Hours', '24.hours'],
+              ['Last 7 Days', '7.days'],
+              ['Last 30 Days', '30.days']
+            ], params[:period]),
+            class: 'form-control',
+            onchange: 'this.form.submit()' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>Response Times</h3>
+      <canvas id="response-time-chart"
+              data-chart-data="<%= chart_data_for(@stats[:response_times]) %>">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Error Rates</h3>
+      <canvas id="error-rate-chart"
+              data-chart-data="<%= chart_data_for(@stats[:error_rates]) %>">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Request Volume</h3>
+      <canvas id="request-volume-chart"
+              data-chart-data="<%= chart_data_for(@stats[:request_volumes]) %>">
+      </canvas>
+    </div>
+  </div>
+
+  <div class="performance-stats">
+    <h3>Top Endpoints by Response Time</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Path</th>
+          <th>Avg Duration</th>
+          <th>Request Count</th>
+          <th>Error Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @stats[:endpoints].each do |endpoint| %>
+          <tr>
+            <td><%= endpoint[:path] %></td>
+            <td><%= format_duration(endpoint[:avg_duration]) %></td>
+            <td><%= endpoint[:count] %></td>
+            <td><%= format_error_rate(endpoint[:error_rate]) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
